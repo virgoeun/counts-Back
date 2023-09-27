@@ -7,22 +7,33 @@ const userSchema = new Schema(
       required: [true, "Email is required."],
       unique: true,
       lowercase: true,
-      trim: true,
+      trim: true
     },
     password: {
       type: String,
-      required: [true, "Password is required."],
-    },
-    userName: {
-      type: String,
-      required: [true, "Name is required."],
+      required: [true, "Password is required."]
     },
     avatar: {
       type: String,
-      default: "/images/avatar.png",
+      default: "/images/avatar.png"
     },
-
+    userName: {
+      type: String,
+      trim: true,
+      unique: [true, "Username is already taken."]
+    },
+    userGoal: {
+      type: String,
+      enum: [
+        "Increase Movements",
+        "Become Fitter",
+        "Stick to healthy habits",
+        "Cherish my Body!",
+        "Just For Fun",
+      ],
+    },
     userData: [{ type: Schema.Types.ObjectId, ref: "Activity" }],
+    favorites: [{ type: Schema.Types.ObjectId, ref: "Favorite" }]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
