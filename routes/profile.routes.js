@@ -10,19 +10,6 @@ const Activity = require("../models/Activity.model");
 //   res.json("it's working");
 // });
 
-//POST: Create a new data
-// router.post("/profile", (req, res, next) => {
-//   const { sports, sleep, water, stress, user } = req.body;
-//   console.log(sports, sleep, water, stress);
-
-//   Activity.create({ sports, sleep, water, stress })
-//     .then((response) => {
-//       res.json(response);
-//       console.log(response);
-//     })
-//     .catch((err) => res.json(err));
-// });
-
 router.post("/profile", (req, res) => {
   const { userId, sports, sleep, water, stress } = req.body;
 
@@ -35,7 +22,6 @@ router.post("/profile", (req, res) => {
     stress,
   });
 
-  // Save the new Activity document to the database & push to the User
   newActivity
     .save()
     .then((savedActivity) => {
@@ -56,6 +42,65 @@ router.post("/profile", (req, res) => {
       res.status(400).json({ error: error.message });
     });
 });
+
+router.post("/profile/:dataId", (req, res, next) => {
+  const { dataId } = req.params;
+  const { sports } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(dataId)) {
+    res.status(400).json({ message: "Specified id is not valid" });
+    return;
+  }
+
+  Activity.findByIdAndUpdate(
+    dataId,
+    {
+      // sleep,
+      // water,
+      // stress,
+      $push: { sports: sports }, //updating 3 but sports pushing (add)
+    },
+    { new: true }
+  )
+
+    .then((updatedActivity) => res.json(updatedActivity))
+    .catch((error) => res.json(error));
+});
+
+//************** Only updating sports ***********************
+
+//   Activity.findByIdAndUpdate(
+//     activityId,
+//     {
+//       sleep,
+//       water,
+//       stress,
+//       $push: { sports: sports },
+//     },
+//     { new: true }
+//   );
+
+// Save the new Activity document to the database & push to the User
+//   newActivity
+//     .save()
+//     .then((savedActivity) => {
+//       return User.findByIdAndUpdate(
+//         userId,
+//         {
+//           $push: { userData: savedActivity._id },
+//         },
+//         { new: true }
+//       );
+//     })
+//     .then((updatedUser) => {
+//       // Respond with the updated user document
+//       res.status(201).json(updatedUser);
+//     })
+//     .catch((error) => {
+//       console.error(error); // Log the detailed error message
+//       res.status(400).json({ error: error.message });
+//     });
+// });
 
 //GET all activities
 router.get("/profile", (req, res, next) => {
@@ -91,7 +136,6 @@ router.get("/profile/:dataId", (req, res, next) => {
 
 router.put("/profile/:dataId", (req, res, next) => {
   const { dataId } = req.params;
-
   if (!mongoose.Types.ObjectId.isValid(dataId)) {
     res.status(400).json({ message: "Specified id is not valid" });
     return;
@@ -102,12 +146,34 @@ router.put("/profile/:dataId", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
+//   router.put("/profile/:dataId", (req, res, next) => {
+//     const { dataId } = req.params;
+//     const {sleep, water, stress} =req.body;
+
+//     if (!mongoose.Types.ObjectId.isValid(dataId)) {
+//       res.status(400).json({ message: "Specified id is not valid" });
+//       return;
+//     }
+
+//     Activity.findByIdAndUpdate(
+//       dataId,
+//       {
+//         sleep,
+//          water,
+//         stress,
+//         // $push: { sports: sports },
+//       },
+//       { new: true }
+//     )
+
+//       .then((updatedActivity) => res.json(updatedActivity))
+//       .catch((error) => res.json(error));
+//   });
 // ***********************************************************
 // ******************** DELETE: delete each data **************
 
 router.delete("/profile/:dataId", (req, res, next) => {
-
-    const {dataId}=req.params;
+  const { dataId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(dataId)) {
     res.status(400).json({ message: "Specified id is not valid" });
@@ -115,8 +181,12 @@ router.delete("/profile/:dataId", (req, res, next) => {
   }
 
   Activity.findByIdAndDelete(dataId)
-  .then(()=> res.json({message:`Activity with ${dataId} is removed successfully.😎`}))
-  .catch((err)=> res.json(err));
+    .then(() =>
+      res.json({
+        message: `Activity with ${dataId} is removed successfully.😎`,
+      })
+    )
+    .catch((err) => res.json(err));
 });
 
 module.exports = router;
