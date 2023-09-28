@@ -22,17 +22,17 @@ module.exports = (app) => {
   app.set("trust proxy", 1);
 
   // controls a very specific header to pass headers from the frontend
-  app.use(
-    cors({
-      origin: "http://localhost:5173", // this is the FRONTEND// multiple: []
-    })
-  );
-
   // app.use(
   //   cors({
-  //     origin: FRONTEND_URL // it means gets the .env links (3000)
+  //     origin: "http://localhost:5173", // this is the FRONTEND// multiple: []
   //   })
   // );
+
+  app.use(
+    cors({
+      origin: ["http://localhost:5173", process.env.ORIGIN],
+    })
+  );
 
   // In development environment the app logs
   app.use(logger("dev"));
