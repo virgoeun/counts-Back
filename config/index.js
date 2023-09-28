@@ -8,7 +8,7 @@ const logger = require("morgan");
 // ℹ️ Needed when we deal with cookies (we will when dealing with authentication)
 // https://www.npmjs.com/package/cookie-parser
 const cookieParser = require("cookie-parser");
-const favicon = require("serve-favicon");
+//const favicon = require("serve-favicon");
 const path = require("path");
 
 // ℹ️ Needed to accept requests from 'the outside'. CORS stands for cross origin resource sharing
