@@ -8,7 +8,7 @@ const favoriteSchema = new Schema({
       category: {
         type: String,
         required: true,
-        enum: ["style", "food", "location", "workouts"],
+        enum: ["style", "food", "location", "music"],
       },
       title: { type: String, required: true },
       url: {type: String},
