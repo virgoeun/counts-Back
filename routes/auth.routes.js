@@ -19,10 +19,10 @@ const saltRounds = 10;
 // *********** POST /auth/signup: Create a new User in DB **********
 
 router.post("/signup", (req, res, next) => {
-  const { email, password, userName } = req.body;
+  const { email, password } = req.body;
 
-  if (email === "" || password === "" || userName === "") {
-    res.status(400).json({ message: "Email, password & userName are required!😳" });
+  if (email === "" || password === "") {
+    res.status(400).json({ message: "Email & password are required!😳" });
   }
 
   // This regular expression check that the email is of a valid format
@@ -52,13 +52,13 @@ router.post("/signup", (req, res, next) => {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashedPassword = bcrypt.hashSync(password, salt);
 
-      return User.create({ email, userName, password: hashedPassword });
+      return User.create({ email, password: hashedPassword });
     })
     .then((createdUser) => {
-      const { email, _id, Username } = createdUser;
+      const { email, _id } = createdUser;
 
       // Create a new object that doesn't expose the password
-      const user = { email, _id, userName };
+      const user = { email, _id };
 
       // Send a json response containing the user object
       res.status(201).json({ user: user });
@@ -70,20 +70,20 @@ router.post("/signup", (req, res, next) => {
 // ************************** POST /auth/login *********************
 
 // POST  /auth/login - Verifies email and password and returns a JWT (create a JWT)
-router.post("/login", (req, res, next) => {
-  const { email, password, userName } = req.body;
+// router.post("/login", (req, res, next) => {
+//   const { email, password } = req.body;
 
-  if (email === "" || password === "" || userName==="") {
-    res.status(400).json({ message: "Provide email and password." });
-    return;
-  }
-});
+//   if (email === "" || password === "") {
+//     res.status(400).json({ message: "Provide email and password." });
+//     return;
+//   }
+// });
 
 router.post("/login", (req, res, next) => {
-  const { email, password, userName } = req.body;
+  const { email, password } = req.body;
 
   // Check if email or password are provided as empty string
-  if (email === "" || password === "" || userName==="") {
+  if (email === "" || password === "") {
     res.status(400).json({ message: "Both email & password are required!😳" });
     return;
   }
@@ -102,10 +102,10 @@ router.post("/login", (req, res, next) => {
 
       if (passwordCorrect) {
         // Deconstruct the user object to omit the password
-        const { _id, email, userName } = foundUser;
+        const { _id, email } = foundUser;
 
         // Create an object that will be set as the token payload (store the user data without pw)
-        const payload = { _id, email, userName };
+        const payload = { _id, email };
 
         // Create a JSON Web Token and sign it
         // jwt.sign() method: jwt.sign(payload, secretKey, options)
@@ -122,7 +122,6 @@ router.post("/login", (req, res, next) => {
     })
     .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
 });
-
 
 // *****************************************************************
 // ************************** GET /auth/verify *********************
