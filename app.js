@@ -27,6 +27,8 @@ app.use("/api", profileRouter);
 const playlistRouter = require("./routes/playlist.routes")
 app.use("/api", playlistRouter);
 
+const instaRouter = require("./routes/insta.routes")
+app.use("/api", instaRouter);
 
 const authRouter = require("./routes/auth.routes");
 app.use("/auth", authRouter);
