@@ -19,9 +19,9 @@ const saltRounds = 10;
 // *********** POST /auth/signup: Create a new User in DB **********
 
 router.post("/signup", (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, userName } = req.body;
 
-  if (email === "" || password === "") {
+  if (email === "" || password === ""|| userName==="") {
     res.status(400).json({ message: "Email & password are required!😳" });
   }
 
@@ -52,13 +52,13 @@ router.post("/signup", (req, res, next) => {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashedPassword = bcrypt.hashSync(password, salt);
 
-      return User.create({ email, password: hashedPassword });
+      return User.create({ email, password: hashedPassword, userName });
     })
     .then((createdUser) => {
-      const { email, _id } = createdUser;
+      const { email, _id, userName } = createdUser;
 
       // Create a new object that doesn't expose the password
-      const user = { email, _id };
+      const user = { email, _id, userName };
 
       // Send a json response containing the user object
       res.status(201).json({ user: user });
@@ -102,10 +102,10 @@ router.post("/login", (req, res, next) => {
 
       if (passwordCorrect) {
         // Deconstruct the user object to omit the password
-        const { _id, email } = foundUser;
+        const { _id, email, userName } = foundUser;
 
         // Create an object that will be set as the token payload (store the user data without pw)
-        const payload = { _id, email };
+        const payload = { _id, email, userName };
 
         // Create a JSON Web Token and sign it
         // jwt.sign() method: jwt.sign(payload, secretKey, options)

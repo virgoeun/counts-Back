@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 // Define a schema for each category of data
-const favoriteSchema = new mongoose.Schema({
+const favoriteSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: "User" },
   bookmarks: [
     {
@@ -18,6 +18,6 @@ const favoriteSchema = new mongoose.Schema({
   ],
 });
 
-const favorite = mongoose.model("Favorite", favoriteSchema);
+const favorite = model("Favorite", favoriteSchema);
 
 module.exports = favorite;
