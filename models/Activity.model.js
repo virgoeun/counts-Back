@@ -9,7 +9,7 @@ const activitySchema = new Schema([
     //   enum: ["sleep", "stress", "water", "sports"],
     // },
     sleep: {
-      durationInHours: Number
+      durationInHours: Number,
     },
     water: {
       type: String,
@@ -21,7 +21,6 @@ const activitySchema = new Schema([
     },
     sports: [
       {
-        _id: false,
         date: {
           type: Date,
           default: Date.now,

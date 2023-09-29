@@ -67,40 +67,6 @@ router.post("/profile/:dataId", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
-//************** Only updating sports ***********************
-
-//   Activity.findByIdAndUpdate(
-//     activityId,
-//     {
-//       sleep,
-//       water,
-//       stress,
-//       $push: { sports: sports },
-//     },
-//     { new: true }
-//   );
-
-// Save the new Activity document to the database & push to the User
-//   newActivity
-//     .save()
-//     .then((savedActivity) => {
-//       return User.findByIdAndUpdate(
-//         userId,
-//         {
-//           $push: { userData: savedActivity._id },
-//         },
-//         { new: true }
-//       );
-//     })
-//     .then((updatedUser) => {
-//       // Respond with the updated user document
-//       res.status(201).json(updatedUser);
-//     })
-//     .catch((error) => {
-//       console.error(error); // Log the detailed error message
-//       res.status(400).json({ error: error.message });
-//     });
-// });
 
 //GET all activities // Calendar
 router.get("/profile", (req, res, next) => {
@@ -146,29 +112,91 @@ router.put("/profile/:dataId", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
-//   router.put("/profile/:dataId", (req, res, next) => {
-//     const { dataId } = req.params;
-//     const {sleep, water, stress} =req.body;
 
-//     if (!mongoose.Types.ObjectId.isValid(dataId)) {
-//       res.status(400).json({ message: "Specified id is not valid" });
-//       return;
-//     }
+// PUT route to edit the 'isCompleted' property of a sports activity
+router.put("/profile/:activityId/sports/:sportsId", async (req, res, next) => {
+  const { activityId, sportsId } = req.params;
+  const { isCompleted } = req.body;
 
-//     Activity.findByIdAndUpdate(
-//       dataId,
-//       {
-//         sleep,
-//          water,
-//         stress,
-//         // $push: { sports: sports },
-//       },
-//       { new: true }
-//     )
+  try {
+    // Validate if 'activityId' is a valid MongoDB ObjectID
+    if (!mongoose.Types.ObjectId.isValid(activityId)) {
+      return res.status(400).json({ message: "Invalid Activity ID format" });
+    }
 
-//       .then((updatedActivity) => res.json(updatedActivity))
-//       .catch((error) => res.json(error));
-//   });
+    // Update the 'isCompleted' property using the positional operator '$'
+    const updatedActivity = await Activity.findOneAndUpdate(
+      {
+        _id: activityId,
+        "sports._id": sportsId,
+      },
+      {
+        $set: { "sports.$.isCompleted": isCompleted },
+      },
+      { new: true }
+    );
+
+    if (!updatedActivity) {
+      return res.status(404).json({ message: "Activity or Sports Activity not found" });
+    }
+
+    res.status(200).json(updatedActivity);
+  } catch (error) {
+    console.error("Error updating sports activity:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+module.exports = router;
+
+
+
+// router.put("/profile/:dataId/:sportsId", (req, res, next) => {
+//   const { dataId, sportsId } = req.params;
+
+//   console.log("Received dataId:", dataId);
+//   console.log("Received sportsId:", sportsId);
+
+//   if (!mongoose.Types.ObjectId.isValid(dataId)) {
+//     res.status(400).json({ message: "Specified id is not valid" });
+//     return;
+//   }
+
+//   const { isCompleted } = req.body;
+
+//   Activity.findByIdAndUpdate(dataId)
+//     .then((resp) => {
+//       console.log("Found Activity:", resp);
+//       //const id = new mongoose.Types.ObjectId(sportsId);
+//       //console.log("id?",id)
+//       const foundSport = resp.sports.filter((e) => e._id.toString() === sportsId);
+//       console.log("Found Sport:", foundSport);
+//       console.log("sportID", sportsId)
+//       //res.send({ foundSport });
+
+//       if (!foundSport) {
+//         res.status(404).json({ message: "Sport not found" })
+        
+//         return;
+//       }
+
+//       // Update the isCompleted property of the sport
+//       foundSport.isCompleted = isCompleted;
+
+
+//       // Save the updated activity
+//     return foundSport.save();
+//     })
+//     .then((updatedActivity) => {
+//       // Respond with the updated activity
+//       res.status(200).json(updatedActivity);
+//     })
+//     .catch((error) => {
+//       console.error("Error updating sport:", error);
+//       res.status(500).json({ message: "Internal server error" });
+//     });
+// });
+
 // ***********************************************************
 // ******************** DELETE: delete each data **************
 
