@@ -34,11 +34,24 @@ router.get("/insta-post", (req, res, next) => {
 
 
 // *********** GET // Get Spotify Playlist! **********
-router.get("/counts-playlist", (req, res, next) => {
+// router.get("/counts-playlist", (req, res, next) => {
+//     spotifyApi
+//       .getPlaylist("37i9dQZF1DXdxcBWuJkbcy")
+//       .then((data) => {
+//         console.log("Counts' recommended playlist is", data.body);
+//         res.status(201).json(data.body);
+//       })
+//       .catch((err) => {
+//         res.status(400).json({ message: "Something went wrong with getting a playlist!" });
+//         console.log("Something went wrong with getting a playlist!", err);
+//       });
+//   });
+
+router.get("/workout-playlist", (req, res, next) => {
     spotifyApi
-      .getPlaylist("37i9dQZF1DXdxcBWuJkbcy")
+      .searchPlaylists("workout", { limit : 5 })
       .then((data) => {
-        console.log("Counts' recommended playlist is", data.body);
+        console.log("Found playlists are", data.body);
         res.status(201).json(data.body);
       })
       .catch((err) => {
