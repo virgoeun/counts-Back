@@ -30,6 +30,10 @@ app.use("/api", inspoRouter)
 const adminRouter = require("./routes/admin.routes")
 app.use("/api", adminRouter)
 
+
+const favoriteRouter = require("./routes/favorite.routes")
+app.use("/api", favoriteRouter);
+
 //const instaRouter = require("./routes/insta.routes")
 //app.use("/api", instaRouter);
 //const playlistRouter = require("./routes/playlist.routes")
@@ -37,6 +41,8 @@ app.use("/api", adminRouter)
 
 const authRouter = require("./routes/auth.routes");
 app.use("/auth", authRouter);
+
+
 
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
