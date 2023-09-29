@@ -11,7 +11,7 @@ const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
 // *********** GET // Get IG Post! **********
 
-router.get("/insta-post", (req, res, next) => {
+router.get("/inspiration", (req, res, next) => {
   const options = {
     method: 'GET',
     url: 'https://instagram130.p.rapidapi.com/account-feed',
@@ -88,4 +88,3 @@ module.exports = router;
 //     });
 // });
 
-module.exports = router;

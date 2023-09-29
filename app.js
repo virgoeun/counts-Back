@@ -25,7 +25,7 @@ const profileRouter = require("./routes/profile.routes")
 app.use("/api", isAuthenticated, profileRouter);
 
 const inspoRouter = require("./routes/inspo.routes")
-app.use("/api", isAuthenticated, inspoRouter)
+app.use("/api", inspoRouter)
 
 const adminRouter = require("./routes/admin.routes")
 app.use("/api", isAuthenticated, adminRouter)
