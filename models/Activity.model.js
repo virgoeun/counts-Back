@@ -4,12 +4,9 @@ const { Schema, model } = require("mongoose");
 const activitySchema = new Schema([
   {
     user: { type: Schema.Types.ObjectId, ref: "User" },
-    // category: {
-    //   type: String,
-    //   enum: ["sleep", "stress", "water", "sports"],
-    // },
+
     sleep: {
-      durationInHours: Number
+      durationInHours: Number,
     },
     water: {
       type: String,
@@ -21,7 +18,6 @@ const activitySchema = new Schema([
     },
     sports: [
       {
-        _id: false,
         date: {
           type: Date,
           default: Date.now,
@@ -53,10 +49,10 @@ const activitySchema = new Schema([
         },
 
         description: String,
-        isCompleted: {
-          type: Boolean,
-          default: false,
-        },
+        // isCompleted: {
+        //   type: Boolean,
+        //   default: false,
+        // },
       },
     ],
   },

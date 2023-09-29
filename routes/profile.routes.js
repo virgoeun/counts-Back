@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 const mongoose = require("mongoose");
-
+//const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 const User = require("../models/User.model");
 const Activity = require("../models/Activity.model");
 
@@ -67,48 +67,17 @@ router.post("/profile/:dataId", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
-//************** Only updating sports ***********************
-
-//   Activity.findByIdAndUpdate(
-//     activityId,
-//     {
-//       sleep,
-//       water,
-//       stress,
-//       $push: { sports: sports },
-//     },
-//     { new: true }
-//   );
-
-// Save the new Activity document to the database & push to the User
-//   newActivity
-//     .save()
-//     .then((savedActivity) => {
-//       return User.findByIdAndUpdate(
-//         userId,
-//         {
-//           $push: { userData: savedActivity._id },
-//         },
-//         { new: true }
-//       );
-//     })
-//     .then((updatedUser) => {
-//       // Respond with the updated user document
-//       res.status(201).json(updatedUser);
-//     })
-//     .catch((error) => {
-//       console.error(error); // Log the detailed error message
-//       res.status(400).json({ error: error.message });
-//     });
-// });
 
 //GET all activities // Calendar
 router.get("/profile", (req, res, next) => {
-  Activity.find()
+  const userId = req.payload._id;
+  console.log("ID", userId)
+
+  Activity.find({ user: userId })
     .populate("user")
-    .then((allActivity) => {
-      console.log("AllActivities", allActivity);
-      res.json(allActivity);
+    .then((userActivities) => {
+      console.log("userActivities", userActivities);
+      res.json(userActivities);
     })
     .catch((err) => res.json(err));
 });
@@ -146,29 +115,8 @@ router.put("/profile/:dataId", (req, res, next) => {
     .catch((error) => res.json(error));
 });
 
-//   router.put("/profile/:dataId", (req, res, next) => {
-//     const { dataId } = req.params;
-//     const {sleep, water, stress} =req.body;
 
-//     if (!mongoose.Types.ObjectId.isValid(dataId)) {
-//       res.status(400).json({ message: "Specified id is not valid" });
-//       return;
-//     }
 
-//     Activity.findByIdAndUpdate(
-//       dataId,
-//       {
-//         sleep,
-//          water,
-//         stress,
-//         // $push: { sports: sports },
-//       },
-//       { new: true }
-//     )
-
-//       .then((updatedActivity) => res.json(updatedActivity))
-//       .catch((error) => res.json(error));
-//   });
 // ***********************************************************
 // ******************** DELETE: delete each data **************
 

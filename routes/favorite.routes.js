@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const User = require("../models/User.model");
 const Activity = require("../models/Activity.model");
 const Favorite = require("../models/Favorite.model");
+const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 // const Instagram = require("instagram-scraper-api")
 
 // Create a new favorite
