@@ -32,7 +32,7 @@ const userSchema = new Schema(
         "Just For Fun",
       ],
     },
-    userData: [{ type: Schema.Types.ObjectId, ref: "Data" }],
+    userData: [{ type: Schema.Types.ObjectId, ref: "Activity" }],
     favorites: [{ type: Schema.Types.ObjectId, ref: "Favorite" }],
 
     isAdmin: {type:Boolean, default:false}
@@ -47,13 +47,3 @@ const User = model("User", userSchema);
 
 module.exports = User;
 
-//example
-// const newUser = new User({
-//     email: "example@email.com",
-//     password: "password123",
-//     userName: "JohnDoe",
-//     userData: [activityObjectId1, activityObjectId2], // Replace with actual ObjectIds
-//   });
-
-//   // Save the user document
-//   newUser.save();

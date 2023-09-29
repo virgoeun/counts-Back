@@ -116,38 +116,6 @@ router.put("/profile/:dataId", (req, res, next) => {
 });
 
 
-router.put("/profile/:activityId/sports/:sportsId", async (req, res) => {
-  try {
-    const { activityId, sportsId } = req.params;
-    const { isCompleted } = req.body;
-
-    // Find the activity by its ID
-    const activity = await Activity.findById(activityId);
-
-    if (!activity) {
-      return res.status(404).json({ message: "Activity not found" });
-    }
-
-    // Find the sports activity within the activity
-    const sportsActivity = activity.sports.find((sport) => sport._id == sportsId);
-
-    if (!sportsActivity) {
-      return res.status(404).json({ message: "Sports activity not found" });
-    }
-
-    // Update the isCompleted property
-    sportsActivity.isCompleted = isCompleted;
-
-    // Save the updated activity
-    await activity.save();
-
-    res.status(200).json({ message: "Sports activity updated successfully" });
-  } catch (error) {
-    console.error("Error updating sports activity:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
 
 // ***********************************************************
 // ******************** DELETE: delete each data **************
