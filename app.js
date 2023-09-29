@@ -24,11 +24,16 @@ app.use("/api", allRoutes);
 const profileRouter = require("./routes/profile.routes")
 app.use("/api", profileRouter);
 
-const playlistRouter = require("./routes/playlist.routes")
-app.use("/api", playlistRouter);
+const inspoRouter = require("./routes/inspo.routes")
+app.use("/api", inspoRouter)
 
-const instaRouter = require("./routes/insta.routes")
-app.use("/api", instaRouter);
+const adminRouter = require("./routes/admin.routes")
+app.use("/api", adminRouter)
+
+//const instaRouter = require("./routes/insta.routes")
+//app.use("/api", instaRouter);
+//const playlistRouter = require("./routes/playlist.routes")
+//app.use("/api", playlistRouter);
 
 const authRouter = require("./routes/auth.routes");
 app.use("/auth", authRouter);

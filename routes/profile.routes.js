@@ -102,7 +102,7 @@ router.post("/profile/:dataId", (req, res, next) => {
 //     });
 // });
 
-//GET all activities
+//GET all activities // Calendar
 router.get("/profile", (req, res, next) => {
   Activity.find()
     .populate("user")
