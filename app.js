@@ -13,7 +13,7 @@ const app = express();
 //spotify web api pkg
 //const SpotifyWebApi = require('spotify-web-api-node');
 
-
+const { isAuthenticated } = require("./middleware/jwt.middleware.js");
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
@@ -22,17 +22,17 @@ const allRoutes = require("./routes/index.routes")
 app.use("/api", allRoutes);
 
 const profileRouter = require("./routes/profile.routes")
-app.use("/api", profileRouter);
+app.use("/api", isAuthenticated, profileRouter);
 
 const inspoRouter = require("./routes/inspo.routes")
-app.use("/api", inspoRouter)
+app.use("/api", isAuthenticated, inspoRouter)
 
 const adminRouter = require("./routes/admin.routes")
-app.use("/api", adminRouter)
+app.use("/api", isAuthenticated, adminRouter)
 
 
 const favoriteRouter = require("./routes/favorite.routes")
-app.use("/api", favoriteRouter);
+app.use("/api", isAuthenticated, favoriteRouter);
 
 //const instaRouter = require("./routes/insta.routes")
 //app.use("/api", instaRouter);

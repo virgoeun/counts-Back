@@ -2,6 +2,7 @@
 // const router = require("express").Router();
 // require('dotenv').config();
 // const mongoose = require("mongoose");
+//const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
 // const User = require("../models/User.model");
 // const Activity = require("../models/Activity.model");

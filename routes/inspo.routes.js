@@ -6,6 +6,7 @@ const User = require("../models/User.model");
 const Activity = require("../models/Activity.model");
 const Favorite = require("../models/Favorite.model");
 // const Instagram = require("instagram-scraper-api")
+const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
 
 // *********** GET // Get IG Post! **********

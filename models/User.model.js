@@ -32,7 +32,7 @@ const userSchema = new Schema(
         "Just For Fun",
       ],
     },
-    userData: [{ type: Schema.Types.ObjectId, ref: "Activity" }],
+    userData: [{ type: Schema.Types.ObjectId, ref: "Data" }],
     favorites: [{ type: Schema.Types.ObjectId, ref: "Favorite" }],
 
     isAdmin: {type:Boolean, default:false}

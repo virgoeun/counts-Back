@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 const mongoose = require("mongoose");
-
+//const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 const User = require("../models/User.model");
 const Activity = require("../models/Activity.model");
 
@@ -70,11 +70,14 @@ router.post("/profile/:dataId", (req, res, next) => {
 
 //GET all activities // Calendar
 router.get("/profile", (req, res, next) => {
-  Activity.find()
+  const userId = req.payload._id;
+  console.log("ID", userId)
+
+  Activity.find({ user: userId })
     .populate("user")
-    .then((allActivity) => {
-      console.log("AllActivities", allActivity);
-      res.json(allActivity);
+    .then((userActivities) => {
+      console.log("userActivities", userActivities);
+      res.json(userActivities);
     })
     .catch((err) => res.json(err));
 });
@@ -113,89 +116,38 @@ router.put("/profile/:dataId", (req, res, next) => {
 });
 
 
-// PUT route to edit the 'isCompleted' property of a sports activity
-router.put("/profile/:activityId/sports/:sportsId", async (req, res, next) => {
-  const { activityId, sportsId } = req.params;
-  const { isCompleted } = req.body;
-
+router.put("/profile/:activityId/sports/:sportsId", async (req, res) => {
   try {
-    // Validate if 'activityId' is a valid MongoDB ObjectID
-    if (!mongoose.Types.ObjectId.isValid(activityId)) {
-      return res.status(400).json({ message: "Invalid Activity ID format" });
+    const { activityId, sportsId } = req.params;
+    const { isCompleted } = req.body;
+
+    // Find the activity by its ID
+    const activity = await Activity.findById(activityId);
+
+    if (!activity) {
+      return res.status(404).json({ message: "Activity not found" });
     }
 
-    // Update the 'isCompleted' property using the positional operator '$'
-    const updatedActivity = await Activity.findOneAndUpdate(
-      {
-        _id: activityId,
-        "sports._id": sportsId,
-      },
-      {
-        $set: { "sports.$.isCompleted": isCompleted },
-      },
-      { new: true }
-    );
+    // Find the sports activity within the activity
+    const sportsActivity = activity.sports.find((sport) => sport._id == sportsId);
 
-    if (!updatedActivity) {
-      return res.status(404).json({ message: "Activity or Sports Activity not found" });
+    if (!sportsActivity) {
+      return res.status(404).json({ message: "Sports activity not found" });
     }
 
-    res.status(200).json(updatedActivity);
+    // Update the isCompleted property
+    sportsActivity.isCompleted = isCompleted;
+
+    // Save the updated activity
+    await activity.save();
+
+    res.status(200).json({ message: "Sports activity updated successfully" });
   } catch (error) {
     console.error("Error updating sports activity:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
 
-module.exports = router;
-
-
-
-// router.put("/profile/:dataId/:sportsId", (req, res, next) => {
-//   const { dataId, sportsId } = req.params;
-
-//   console.log("Received dataId:", dataId);
-//   console.log("Received sportsId:", sportsId);
-
-//   if (!mongoose.Types.ObjectId.isValid(dataId)) {
-//     res.status(400).json({ message: "Specified id is not valid" });
-//     return;
-//   }
-
-//   const { isCompleted } = req.body;
-
-//   Activity.findByIdAndUpdate(dataId)
-//     .then((resp) => {
-//       console.log("Found Activity:", resp);
-//       //const id = new mongoose.Types.ObjectId(sportsId);
-//       //console.log("id?",id)
-//       const foundSport = resp.sports.filter((e) => e._id.toString() === sportsId);
-//       console.log("Found Sport:", foundSport);
-//       console.log("sportID", sportsId)
-//       //res.send({ foundSport });
-
-//       if (!foundSport) {
-//         res.status(404).json({ message: "Sport not found" })
-        
-//         return;
-//       }
-
-//       // Update the isCompleted property of the sport
-//       foundSport.isCompleted = isCompleted;
-
-
-//       // Save the updated activity
-//     return foundSport.save();
-//     })
-//     .then((updatedActivity) => {
-//       // Respond with the updated activity
-//       res.status(200).json(updatedActivity);
-//     })
-//     .catch((error) => {
-//       console.error("Error updating sport:", error);
-//       res.status(500).json({ message: "Internal server error" });
-//     });
-// });
 
 // ***********************************************************
 // ******************** DELETE: delete each data **************
