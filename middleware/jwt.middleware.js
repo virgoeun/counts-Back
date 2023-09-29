@@ -17,6 +17,8 @@ function getTokenFromHeaders(req) {
   ) {
     // Get the encoded token string and return it
     const token = req.headers.authorization.split(" ")[1];
+
+    
     return token;
   }
 

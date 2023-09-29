@@ -10,6 +10,10 @@ require("./db");
 const express = require("express");
 const app = express();
 
+//spotify web api pkg
+//const SpotifyWebApi = require('spotify-web-api-node');
+
+
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
@@ -19,6 +23,17 @@ app.use("/api", allRoutes);
 
 const profileRouter = require("./routes/profile.routes")
 app.use("/api", profileRouter);
+
+const inspoRouter = require("./routes/inspo.routes")
+app.use("/api", inspoRouter)
+
+const adminRouter = require("./routes/admin.routes")
+app.use("/api", adminRouter)
+
+//const instaRouter = require("./routes/insta.routes")
+//app.use("/api", instaRouter);
+//const playlistRouter = require("./routes/playlist.routes")
+//app.use("/api", playlistRouter);
 
 const authRouter = require("./routes/auth.routes");
 app.use("/auth", authRouter);
