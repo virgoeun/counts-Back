@@ -11,11 +11,12 @@ const Activity = require("../models/Activity.model");
 // });
 
 router.post("/profile", (req, res) => {
-  const { userId, sports, sleep, water, stress } = req.body;
+  const { userId, date, sports, sleep, water, stress } = req.body;
 
   // Create a new Activity document based on the request data
   const newActivity = new Activity({
     user: userId,
+    date,
     sports,
     sleep,
     water,
