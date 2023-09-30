@@ -10,8 +10,6 @@ require("./db");
 const express = require("express");
 const app = express();
 
-//spotify web api pkg
-//const SpotifyWebApi = require('spotify-web-api-node');
 
 const { isAuthenticated } = require("./middleware/jwt.middleware.js");
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
