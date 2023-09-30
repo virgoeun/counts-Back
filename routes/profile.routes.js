@@ -21,6 +21,7 @@ router.post("/profile", (req, res) => {
     sleep,
     water,
     stress,
+    note
   });
 
   newActivity
