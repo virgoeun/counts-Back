@@ -30,9 +30,8 @@ app.use("/api", isAuthenticated, inspoRouter)
 const adminRouter = require("./routes/admin.routes")
 app.use("/api", isAuthenticated, adminRouter)
 
-
 const favoriteRouter = require("./routes/favorite.routes")
-app.use("/api", isAuthenticated, favoriteRouter);
+app.use("/api", favoriteRouter);
 
 //const instaRouter = require("./routes/insta.routes")
 //app.use("/api", instaRouter);

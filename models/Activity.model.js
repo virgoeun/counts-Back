@@ -4,7 +4,10 @@ const { Schema, model } = require("mongoose");
 const activitySchema = new Schema([
   {
     user: { type: Schema.Types.ObjectId, ref: "User" },
-
+    date: {
+      type: Date,
+      default: Date.now,
+    },
     sleep: {
       durationInHours: Number,
     },
@@ -18,11 +21,6 @@ const activitySchema = new Schema([
     },
     sports: [
       {
-        date: {
-          type: Date,
-          default: Date.now,
-        },
-
         durationInMinutes: Number,
 
         level: {

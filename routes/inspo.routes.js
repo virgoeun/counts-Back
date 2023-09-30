@@ -11,7 +11,7 @@ const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
 // *********** GET // Get IG Post! **********
 
-router.get("/insta-post", (req, res, next) => {
+router.get("/inspiration", isAuthenticated, (req, res, next) => {
   const options = {
     method: 'GET',
     url: 'https://instagram130.p.rapidapi.com/account-feed',
@@ -48,18 +48,18 @@ router.get("/insta-post", (req, res, next) => {
 //       });
 //   });
 
-router.get("/workout-playlist", (req, res, next) => {
-    spotifyApi
-      .searchPlaylists("workout", { limit : 5 })
-      .then((data) => {
-        console.log("Found playlists are", data.body);
-        res.status(201).json(data.body);
-      })
-      .catch((err) => {
-        res.status(400).json({ message: "Something went wrong with getting a playlist!" });
-        console.log("Something went wrong with getting a playlist!", err);
-      });
-  });
+// router.get("/workout-playlist", (req, res, next) => {
+//     spotifyApi
+//       .searchPlaylists("workout", { limit : 5 })
+//       .then((data) => {
+//         console.log("Found playlists are", data.body);
+//         res.status(201).json(data.body);
+//       })
+//       .catch((err) => {
+//         res.status(400).json({ message: "Something went wrong with getting a playlist!" });
+//         console.log("Something went wrong with getting a playlist!", err);
+//       });
+//   });
 
 
 module.exports = router;
@@ -88,4 +88,3 @@ module.exports = router;
 //     });
 // });
 
-module.exports = router;
