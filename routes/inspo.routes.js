@@ -11,27 +11,57 @@ const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
 // *********** GET // Get IG Post! **********
 
-router.get("/inspiration", isAuthenticated, (req, res, next) => {
+// router.get("/inspiration", (req, res, next) => {
+//   const options = {
+//     method: 'GET',
+//     url: 'https://instagram130.p.rapidapi.com/account-feed',
+//     params: {username: 'lululemon'},
+//     headers: {
+//       'X-RapidAPI-Key': '2b90b0f361msh8b43d50ec02dbcep1952bdjsn487cd58b3f12',
+//       'X-RapidAPI-Host': 'instagram130.p.rapidapi.com'
+//     }
+//   };
+
+//   axios
+//     .request(options)
+//     .then((response) => {
+//       console.log("Instagram response", response);
+//       res.status(201).json(response.data);
+//     })
+//     .catch((err) => {
+//       res.status(400).json({ message: "can't get instagram posts!" });
+//     });
+// });
+
+
+router.get("/inspiration", (req, res, next) => {
   const options = {
     method: 'GET',
-    url: 'https://instagram130.p.rapidapi.com/account-feed',
-    params: {username: 'lululemon'},
+    url: 'https://spotify23.p.rapidapi.com/search/',
+    params: {q: 'workout',
+    type: 'playlist',
+    offset: '0',
+    limit: '10',
+    numberOfTopResults: '5'},
     headers: {
       'X-RapidAPI-Key': '2b90b0f361msh8b43d50ec02dbcep1952bdjsn487cd58b3f12',
-      'X-RapidAPI-Host': 'instagram130.p.rapidapi.com'
+      'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
     }
   };
 
   axios
     .request(options)
     .then((response) => {
-      console.log("Instagram response", response);
+      console.log("Instagram API response", response);
       res.status(201).json(response.data);
     })
     .catch((err) => {
-      res.status(400).json({ message: "can't get instagram posts!" });
+      res.status(400).json({ message: "can't get Spotify lists!" });
     });
 });
+
+
+
 
 
 // *********** GET // Get Spotify Playlist! **********
@@ -63,28 +93,3 @@ router.get("/inspiration", isAuthenticated, (req, res, next) => {
 
 
 module.exports = router;
-
-// router.get("/insta-post", (req, res, next) => {
-//   const options = {
-//     method: "GET",
-//     url: "https://instagram-scraper-2022.p.rapidapi.com/ig/posts/",
-//     params: {
-//       id_user: "528817151",
-//     },
-//     headers: {
-//       "X-RapidAPI-Key": "2b90b0f361msh8b43d50ec02dbcep1952bdjsn487cd58b3f12",
-//       "X-RapidAPI-Host": "instagram-scraper-2022.p.rapidapi.com",
-//     },
-//   };
-
-//   axios
-//     .request(options)
-//     .then((response) => {
-//       console.log("Instagram response", response);
-//       res.status(201).json(response.data);
-//     })
-//     .catch((err) => {
-//       res.status(400).json({ message: "can't get instagram posts!" });
-//     });
-// });
-
