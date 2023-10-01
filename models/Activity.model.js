@@ -1,12 +1,13 @@
 const { Schema, model } = require("mongoose");
 
-// Define a schema for each category of data
+
 const activitySchema = new Schema([
   {
     user: { type: Schema.Types.ObjectId, ref: "User" },
     date: {
       type: Date,
-      default: Date.now,
+      required:true,
+      //default: Date.now,
     },
     sleep: {
       type:String,
@@ -14,7 +15,7 @@ const activitySchema = new Schema([
     },
     water: {
       type: String,
-      enum: ["+3l 💧💧💧 ", "+2l 💧💧", "+1l 💧", "+0.5l 💦"],
+      enum: ["+3l 💧💧💧", "+2l 💧💧", "+1l 💧", "+0.5l 💦"],
     },
     stress: {
       type: String,
@@ -65,3 +66,5 @@ const activitySchema = new Schema([
 const Activity = model("Activity", activitySchema);
 
 module.exports = Activity;
+
+
