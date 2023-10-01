@@ -11,22 +11,22 @@ const activitySchema = new Schema([
     },
     sleep: {
       type:String,
-      enum: ["+8 hours", "+7 hours", "+6 hours", "+4~5 hours", "I need Sleep! 😪"],
+      enum: ["8", "7", "6", "4.5", "3"],
     },
     water: {
       type: String,
-      enum: ["+3l 💧💧💧", "+2l 💧💧", "+1l 💧", "+0.5l 💦"],
+      enum: ["3", "2", "1", "0.5"],
     },
     stress: {
       type: String,
-      enum: ["Burned-out🤯", "Middle", "Low", "No Stress!🥰"],
+      enum: ["0", "4", "8", "10"],
     },
     sports: [
       {
         durationInMinutes: {
 
           type:String,
-          enum: ["+3 hours", "+2 hours", "+1 hour", "+30 minutes", "+20 minutes", "10 minutes!😎"],
+          enum: ["3", "2", "1", "0.5", "0.25", "0.1"],
         },
 
         level: {

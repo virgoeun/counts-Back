@@ -88,7 +88,7 @@ console.log("ID", userId)
   Activity.find({ user: userId })
     .populate("user")
     .then((userActivities) => {
-      console.log("userActivities", userActivities);
+      console.log("userActivities", userActivities); 
       res.json(userActivities);
     })
     .catch((err) => res.json(err));
