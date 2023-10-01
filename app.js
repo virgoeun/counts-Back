@@ -22,8 +22,11 @@ app.use("/api", allRoutes);
 const profileRouter = require("./routes/profile.routes")
 app.use("/api", isAuthenticated, profileRouter);
 
-const inspoRouter = require("./routes/inspo.routes")
-app.use("/api", isAuthenticated, inspoRouter)
+const musicRouter = require("./routes/music.routes")
+app.use("/api", isAuthenticated, musicRouter)
+
+const videoRouter = require("./routes/video.routes")
+app.use("/api", isAuthenticated, videoRouter)
 
 const adminRouter = require("./routes/admin.routes")
 app.use("/api", isAuthenticated, adminRouter)
@@ -33,7 +36,6 @@ app.use("/api", favoriteRouter);
 
 const checkinRouter = require("./routes/checkin.routes")
 app.use("/api", checkinRouter);
-
 
 const authRouter = require("./routes/auth.routes");
 app.use("/auth", authRouter);

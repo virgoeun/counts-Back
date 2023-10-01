@@ -19,6 +19,7 @@ router.post("/checkin", (req, res) => {
 
   const userId = req.payload._id
 
+
   const newActivity = new Activity({
     user: userId,
     date,
@@ -84,7 +85,7 @@ const userId = req.payload._id; //current logged-in user's logs will get retriev
 console.log("ID", userId)
 //Activity.find({ user: userId })
 
-  Activity.find()
+  Activity.find({ user: userId })
     .populate("user")
     .then((userActivities) => {
       console.log("userActivities", userActivities);
