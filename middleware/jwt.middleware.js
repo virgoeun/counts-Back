@@ -8,6 +8,14 @@ const isAuthenticated = jwt({
   getToken: getTokenFromHeaders,
 });
 
+const getUser = jwt({
+  secret: process.env.TOKEN_SECRET,
+  algorithms: ["HS256"],
+  requestProperty: "userTokenData",
+  getToken: getTokenFromHeaders,
+  credentialsRequired: false,
+});
+
 // Function used to extract the JWT token from the request's 'Authorization' Headers
 function getTokenFromHeaders(req) {
   // Check if the token is available on the request Headers
@@ -27,5 +35,5 @@ function getTokenFromHeaders(req) {
 
 // Export the middleware so that we can use it to create protected routes
 module.exports = {
-  isAuthenticated,
+  isAuthenticated, getUser
 };
