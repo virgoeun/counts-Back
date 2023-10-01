@@ -26,7 +26,7 @@ const activitySchema = new Schema([
         durationInMinutes: {
 
           type:String,
-          enum: ["+3 hours", "+2 hours", "+1 hour", "+30 minutes", "+20 minutes", "<10 minutes!😎"],
+          enum: ["+3 hours", "+2 hours", "+1 hour", "+30 minutes", "+20 minutes", "10 minutes!😎"],
         },
 
         level: {
@@ -44,10 +44,11 @@ const activitySchema = new Schema([
             "Winter Sports",
             "Stretching",
             "Run",
-            "Cycle",
+            "Cycling",
             "Hiking",
             "Bouldering",
             "Boxing",
+            "Body Weight Training",
             "Others",
           ],
         },

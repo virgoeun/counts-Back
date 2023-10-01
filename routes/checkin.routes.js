@@ -11,7 +11,9 @@ const Activity = require("../models/Activity.model");
 // });
 
 router.post("/checkin", (req, res) => {
+
   const { userId, date, sports, sleep, water, stress, note } = req.body;
+  console.log("Backend Req.body", req.body);
 
   const newActivity = new Activity({
     user: userId,
@@ -74,10 +76,11 @@ router.post("/checkin", (req, res) => {
 //GET all activities // Calendar
 
 router.get("/checkin", (req, res, next) => {
-  const userId = req.payload._id; //current logged-in user's logs will get retrieved!
-  console.log("ID", userId)
+const userId = req.payload._id; //current logged-in user's logs will get retrieved!
+console.log("ID", userId)
+//Activity.find({ user: userId })
 
-  Activity.find({ user: userId })
+  Activity.find()
     .populate("user")
     .then((userActivities) => {
       console.log("userActivities", userActivities);
