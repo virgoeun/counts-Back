@@ -11,9 +11,13 @@ const Activity = require("../models/Activity.model");
 // });
 
 router.post("/checkin", (req, res) => {
+ 
+  // const { userId, date, sports, sleep, water, stress, note } = req.body;
 
-  const { userId, date, sports, sleep, water, stress, note } = req.body;
+  const { date, sports, sleep, water, stress, note } = req.body;
   console.log("Backend Req.body", req.body);
+
+  const userId = req.payload._id
 
   const newActivity = new Activity({
     user: userId,
