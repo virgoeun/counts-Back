@@ -1,11 +1,10 @@
 // const axios = require("axios");
 const router = require("express").Router();
-// const spotifyApi = require("../config/spotify.config");
 const mongoose = require("mongoose");
 const User = require("../models/User.model");
 const Activity = require("../models/Activity.model");
 const Favorite = require("../models/Favorite.model");
-// const Instagram = require("instagram-scraper-api")
+const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
 // Create a new favorite
 // router.post("/favorite", (req, res, next) => {

@@ -1,37 +1,37 @@
 const { Schema, model } = require("mongoose");
 
-// Define a schema for each category of data
+
 const activitySchema = new Schema([
   {
     user: { type: Schema.Types.ObjectId, ref: "User" },
-    // category: {
-    //   type: String,
-    //   enum: ["sleep", "stress", "water", "sports"],
-    // },
+    date: {
+      type: Date,
+      required:true,
+      //default: Date.now,
+    },
     sleep: {
-      durationInHours: Number
+      type:String,
+      enum: ["+8 hours", "+7 hours", "+6 hours", "+4~5 hours", "I need Sleep! 😪"],
     },
     water: {
       type: String,
-      enum: ["+3 Liters", "+2 Liters", "+1 Liters", "+0.5 Liters"],
+      enum: ["+3l 💧💧💧", "+2l 💧💧", "+1l 💧", "+0.5l 💦"],
     },
     stress: {
       type: String,
-      enum: ["Burned-out", "Middle", "Low", "No Stress!"],
+      enum: ["Burned-out🤯", "Middle", "Low", "No Stress!🥰"],
     },
     sports: [
       {
-        _id: false,
-        date: {
-          type: Date,
-          default: Date.now,
-        },
+        durationInMinutes: {
 
-        durationInMinutes: Number,
+          type:String,
+          enum: ["+3 hours", "+2 hours", "+1 hour", "+30 minutes", "+20 minutes", "10 minutes!😎"],
+        },
 
         level: {
           type: String,
-          enum: ["High-Intensity", "Mid-Intensity", "Mild"],
+          enum: ["High-Intensity 🥵", "Mid-Intensity 😊", "Mild 😌"],
         },
         type: {
           type: String,
@@ -44,24 +44,28 @@ const activitySchema = new Schema([
             "Winter Sports",
             "Stretching",
             "Run",
-            "Cycle",
+            "Cycling",
             "Hiking",
             "Bouldering",
             "Boxing",
+            "Body Weight Training",
             "Others",
           ],
         },
 
         description: String,
-        isCompleted: {
-          type: Boolean,
-          default: false,
-        },
+        // isCompleted: {
+        //   type: Boolean,
+        //   default: false,
+        // },
       },
     ],
+    note: String,
   },
 ]);
 
 const Activity = model("Activity", activitySchema);
 
 module.exports = Activity;
+
+

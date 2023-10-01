@@ -1,90 +1,68 @@
 const axios = require("axios");
 const router = require("express").Router();
-const spotifyApi = require("../config/spotify.config");
 const mongoose = require("mongoose");
 const User = require("../models/User.model");
 const Activity = require("../models/Activity.model");
 const Favorite = require("../models/Favorite.model");
-// const Instagram = require("instagram-scraper-api")
-
-
-// *********** GET // Get IG Post! **********
-
-router.get("/insta-post", (req, res, next) => {
-  const options = {
-    method: 'GET',
-    url: 'https://instagram130.p.rapidapi.com/account-feed',
-    params: {username: 'lululemon'},
-    headers: {
-      'X-RapidAPI-Key': '2b90b0f361msh8b43d50ec02dbcep1952bdjsn487cd58b3f12',
-      'X-RapidAPI-Host': 'instagram130.p.rapidapi.com'
-    }
-  };
-
-  axios
-    .request(options)
-    .then((response) => {
-      console.log("Instagram response", response);
-      res.status(201).json(response.data);
-    })
-    .catch((err) => {
-      res.status(400).json({ message: "can't get instagram posts!" });
-    });
-});
 
 
 // *********** GET // Get Spotify Playlist! **********
-// router.get("/counts-playlist", (req, res, next) => {
-//     spotifyApi
-//       .getPlaylist("37i9dQZF1DXdxcBWuJkbcy")
-//       .then((data) => {
-//         console.log("Counts' recommended playlist is", data.body);
-//         res.status(201).json(data.body);
-//       })
-//       .catch((err) => {
-//         res.status(400).json({ message: "Something went wrong with getting a playlist!" });
-//         console.log("Something went wrong with getting a playlist!", err);
-//       });
-//   });
 
-router.get("/workout-playlist", (req, res, next) => {
-    spotifyApi
-      .searchPlaylists("workout", { limit : 5 })
-      .then((data) => {
-        console.log("Found playlists are", data.body);
-        res.status(201).json(data.body);
-      })
-      .catch((err) => {
-        res.status(400).json({ message: "Something went wrong with getting a playlist!" });
-        console.log("Something went wrong with getting a playlist!", err);
-      });
-  });
-
-
-module.exports = router;
-
-// router.get("/insta-post", (req, res, next) => {
+// router.get("/inspiration", (req, res, next) => {
 //   const options = {
-//     method: "GET",
-//     url: "https://instagram-scraper-2022.p.rapidapi.com/ig/posts/",
-//     params: {
-//       id_user: "528817151",
-//     },
+//     method: 'GET',
+//     url: 'https://spotify23.p.rapidapi.com/search/',
+//     params: {q: 'workout',
+//     type: 'playlist',
+//     offset: '0',
+//     limit: '10',
+//     numberOfTopResults: '5'},
 //     headers: {
-//       "X-RapidAPI-Key": "2b90b0f361msh8b43d50ec02dbcep1952bdjsn487cd58b3f12",
-//       "X-RapidAPI-Host": "instagram-scraper-2022.p.rapidapi.com",
-//     },
+//       'X-RapidAPI-Key': '2b90b0f361msh8b43d50ec02dbcep1952bdjsn487cd58b3f12',
+//       'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
+//     }
 //   };
 
 //   axios
 //     .request(options)
 //     .then((response) => {
-//       console.log("Instagram response", response);
+//       console.log("Instagram API response", response);
 //       res.status(201).json(response.data);
 //     })
 //     .catch((err) => {
-//       res.status(400).json({ message: "can't get instagram posts!" });
+//       res.status(400).json({ message: "can't get Spotify lists!" });
 //     });
 // });
+
+
+// *********** Opengraph **********
+
+// router.get("/inspiration", (req, res, next) => {
+//   const options = {
+//     method: 'GET',
+//     url: 'https://opengraph-io.p.rapidapi.com/api/1.1/sites',
+//     params: {  url: 'https://www.pinterest.de/search/pins/?q=workout&rs=typed',
+//     accept_lang: 'en-US,en;q=0.9',
+//     full_render: 'false',
+//     cache_ok: 'false',
+//     max_cache_age: '432000000'},
+//     headers: {
+//       'X-RapidAPI-Key': '2b90b0f361msh8b43d50ec02dbcep1952bdjsn487cd58b3f12',
+//       'X-RapidAPI-Host': 'opengraph-io.p.rapidapi.com'
+//     }
+//   };
+
+//   axios
+//     .request(options)
+//     .then((response) => {
+//       console.log("DATA API response", response);
+//       res.status(201).json(response.data);
+//     })
+//     .catch((err) => {
+//       res.status(400).json({ message: "can't get DATA" });
+//     });
+// });
+
+
 
 module.exports = router;
