@@ -37,6 +37,13 @@ app.use("/api", favoriteRouter);
 const checkinRouter = require("./routes/checkin.routes")
 app.use("/api", checkinRouter);
 
+const challengeRouter = require("./routes/challenge.routes")
+app.use("/api", challengeRouter)
+
+//EXTRA - maybe for Admin User?
+const geoCoderRouter = require("./routes/geocode.routes")
+app.use("/api", geoCoderRouter)
+
 const authRouter = require("./routes/auth.routes");
 app.use("/auth", authRouter);
 
