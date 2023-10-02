@@ -8,8 +8,18 @@ require("./db");
 // Handles http requests (express is node js framework)
 // https://www.npmjs.com/package/express
 const express = require("express");
-const app = express();
+const app = express()
 
+const cors = require("cors"); // Import the cors middleware
+
+// Configure CORS middleware
+const corsOptions = {
+  origin: "http://localhost:5174",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+};
+
+app.use(cors(corsOptions)); // Apply CORS middleware to all routes
 
 const { isAuthenticated } = require("./middleware/jwt.middleware.js");
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
