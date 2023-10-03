@@ -38,6 +38,9 @@ app.use("/api", isAuthenticated, musicRouter)
 const videoRouter = require("./routes/video.routes")
 app.use("/api", isAuthenticated, videoRouter)
 
+const workoutRouter = require("./routes/workout.routes")
+app.use("/api", isAuthenticated, workoutRouter)
+
 const adminRouter = require("./routes/admin.routes")
 app.use("/api", isAuthenticated, adminRouter)
 
