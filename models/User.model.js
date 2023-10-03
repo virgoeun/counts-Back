@@ -13,30 +13,19 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required."],
     },
-    avatar: {
-      type: String,
-      default: "../images/avatar.png",
-    },
+    // avatar: {
+    //   type: String,
+    //   default: "../images/avatar.png",
+    // },
     userName: {
       type: String,
       trim: true,
       unique: [true, "Username is already taken."],
     },
-    userGoal: {
-      type: String,
-      enum: [
-        "Increase Movements",
-        "Become Fitter",
-        "Stick to healthy habits",
-        "Cherish my Body!",
-        "Just For Fun",
-      ],
-    },
     userData: [{ type: Schema.Types.ObjectId, ref: "Activity" }],
     workouts: [{ type: Schema.Types.ObjectId, ref: "Workout" }],
     favorites: [{ type: Schema.Types.ObjectId, ref: "Favorite" }],
     //favorites: [{ type: Schema.Types.ObjectId, ref: "Favorite" }],
-
     isAdmin: {type:Boolean, default:false}
   },
   {

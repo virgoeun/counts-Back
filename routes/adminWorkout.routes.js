@@ -114,7 +114,7 @@ router.post('/admin-workout', fileUploader.single("imageFile"), (req, res) => {
       });
   });
 
-
+//do I need this?
   router.get('/admin-workout/:workoutId', (req, res) => {
     const { workoutId } = req.params;
     Workout.findById(workoutId)
@@ -129,6 +129,8 @@ router.post('/admin-workout', fileUploader.single("imageFile"), (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
       });
   });
+
+  //EDIT
 
   router.put('/admin-workout/::workoutId', (req, res) => {
     const { workoutId } = req.params;

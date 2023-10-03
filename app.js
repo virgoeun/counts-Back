@@ -8,7 +8,7 @@ require("./db");
 // Handles http requests (express is node js framework)
 // https://www.npmjs.com/package/express
 const express = require("express");
-const app = express()
+const app = express();
 
 const cors = require("cors"); // Import the cors middleware
 
@@ -26,46 +26,45 @@ const { isAuthenticated } = require("./middleware/jwt.middleware.js");
 require("./config")(app);
 
 // 👇 Start handling routes here
-const allRoutes = require("./routes/index.routes")
+const allRoutes = require("./routes/index.routes");
 app.use("/api", allRoutes);
 
-const profileRouter = require("./routes/profile.routes")
+const profileRouter = require("./routes/profile.routes");
 app.use("/api", isAuthenticated, profileRouter);
 
-const musicRouter = require("./routes/music.routes")
-app.use("/api", isAuthenticated, musicRouter)
+const musicRouter = require("./routes/music.routes");
+app.use("/api", isAuthenticated, musicRouter);
 
-const videoRouter = require("./routes/video.routes")
-app.use("/api", isAuthenticated, videoRouter)
+const videoRouter = require("./routes/video.routes");
+app.use("/api", isAuthenticated, videoRouter);
 
-const workoutRouter = require("./routes/workout.routes")
-app.use("/api", isAuthenticated, workoutRouter)
+const workoutRouter = require("./routes/workout.routes");
+app.use("/api", isAuthenticated, workoutRouter);
 
-const styleRouter = require("./routes/style.routes")
-app.use("/api", isAuthenticated, styleRouter)
+const styleRouter = require("./routes/style.routes");
+app.use("/api", isAuthenticated, styleRouter);
 
-const adminRouter = require("./routes/admin.routes")
-app.use("/api", isAuthenticated, adminRouter)
+const adminWorkoutRouter = require("./routes/adminWorkout.routes");
+app.use("/api", isAuthenticated, adminWorkoutRouter);
 
-const adminWorkoutRouter = require("./routes/adminWorkout.routes")
-app.use("/api", isAuthenticated, adminWorkoutRouter)
-
-const checkinRouter = require("./routes/checkin.routes")
+const checkinRouter = require("./routes/checkin.routes");
 app.use("/api", isAuthenticated, checkinRouter);
 
-const challengeRouter = require("./routes/challenge.routes")
-app.use("/api", isAuthenticated, challengeRouter)
+const challengeRouter = require("./routes/challenge.routes");
+app.use("/api", isAuthenticated, challengeRouter);
 
 const bookmarksRouter = require("./routes/bookmarks.routes");
-app.use("/api", isAuthenticated, bookmarksRouter); 
+app.use("/api", isAuthenticated, bookmarksRouter);
 
 //EXTRA - maybe for Admin User?
-const geoCoderRouter = require("./routes/geocode.routes")
-app.use("/api", geoCoderRouter)
+const geoCoderRouter = require("./routes/geocode.routes");
+app.use("/api", geoCoderRouter);
 
 const authRouter = require("./routes/auth.routes");
 app.use("/auth", authRouter);
 
+const adminRouter = require("./routes/admin.routes");
+app.use("/auth", adminRouter);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

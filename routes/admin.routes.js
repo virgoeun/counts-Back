@@ -8,9 +8,10 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
+const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
 // Require necessary (isAuthenticated) middleware in order to control access to specific routes
-const { isAuthenticated } = require("../middleware/jwt.middleware.js");
+
 
 // ************* Route for admin sign-up ********************
 
@@ -69,7 +70,7 @@ router.post("/admin/signup", (req, res, next) => {
     .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
 });
 
-// Route for admin login
+//Route for admin login
 router.post("/admin/login", (req, res) => {
   const { email, password } = req.body;
 
@@ -114,7 +115,7 @@ router.post("/admin/login", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-router.get("/admin/verify", isAuthenticated, (req, res, next) => {
+router.get("/verify", isAuthenticated, (req, res, next) => {
   // If JWT token is valid, the payload gets decoded by the
   // isAuthenticated middleware and is made available on `req.payload`
   console.log(`req.payload`, req.payload);
@@ -131,29 +132,27 @@ router.get("/admin/profile", (req, res, next) => {
       res.json(admin);
     })
     .catch((err) => res.json(err));
-});
+})
 
 
+  // User.findOne({ userName })
+  //   .then((user) => {
+  //     if (!user || !user.isAdmin || user.password !== password) {
+  //       return res.status(403).json({ message: "Access Denied! You've just stepped into the dangerous zone... 🤪" });
+  //     }
 
+  //     // Generate a token for the admin user
+  //     const token = jwt.sign({ username: user.userName }, process.env.TOKEN_SECRET, {
+  //       expiresIn: "1h", // Set the token expiration as needed
+  //       algorithm: "HS256",
+  //     });
 
-//   User.findOne({ userName })
-//     .then((user) => {
-//       if (!user || !user.isAdmin || user.password !== password) {
-//         return res.status(403).json({ message: "Access Denied! You've just stepped into the dangerous zone... 🤪" });
-//       }
-
-//       // Generate a token for the admin user
-//       const token = jwt.sign({ username: user.userName }, process.env.TOKEN_SECRET, {
-//         expiresIn: "1h", // Set the token expiration as needed
-//         algorithm: "HS256",
-//       });
-
-//       res.json({ token });
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//       res.status(500).json({ message: "Internal server error" });
-//     });
+  //     res.json({ token });
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //     res.status(500).json({ message: "Internal server error" });
+  //   });
 // });
 
 module.exports = router;

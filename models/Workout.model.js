@@ -15,7 +15,7 @@ const workoutSchema = new Schema({
   imageUrl: {
     type: String, // You can make this field required if image URLs/paths are essential
   },
-  
+  likes: [  { type: Schema.Types.ObjectId, ref: "User" }], //Array!
   // Other fields as needed
 });
 
