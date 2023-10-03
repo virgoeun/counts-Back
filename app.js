@@ -41,8 +41,14 @@ app.use("/api", isAuthenticated, videoRouter)
 const workoutRouter = require("./routes/workout.routes")
 app.use("/api", isAuthenticated, workoutRouter)
 
+const styleRouter = require("./routes/style.routes")
+app.use("/api", isAuthenticated, styleRouter)
+
 const adminRouter = require("./routes/admin.routes")
 app.use("/api", isAuthenticated, adminRouter)
+
+const adminWorkoutRouter = require("./routes/adminWorkout.routes")
+app.use("/api", isAuthenticated, adminWorkoutRouter)
 
 const checkinRouter = require("./routes/checkin.routes")
 app.use("/api", isAuthenticated, checkinRouter);

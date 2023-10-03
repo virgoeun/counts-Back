@@ -108,7 +108,7 @@ router.post("/admin/login", (req, res) => {
         // Send the token as the response
         res.status(200).json({ authToken: authToken });
       } else {
-        res.status(401).json({ message: "Unable to authenticate the user" });
+        res.status(401).json({ message: "Please Provide the Right Password!🤔 " });
       }
     })
     .catch((err) => res.json(err));

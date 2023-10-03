@@ -33,6 +33,7 @@ const userSchema = new Schema(
       ],
     },
     userData: [{ type: Schema.Types.ObjectId, ref: "Activity" }],
+    workouts: [{ type: Schema.Types.ObjectId, ref: "Workout" }],
     favorites: [{ type: Schema.Types.ObjectId, ref: "Favorite" }],
     //favorites: [{ type: Schema.Types.ObjectId, ref: "Favorite" }],
 
