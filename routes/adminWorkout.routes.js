@@ -103,11 +103,11 @@ router.post('/admin-workout', fileUploader.single("imageFile"), (req, res) => {
 //   });
   
 
-
   router.get('/admin-workout', (req, res) => {
     Workout.find()
-      .then((workoutPlans) => {
-        res.json(workoutPlans);
+      .then((workouts) => {
+        res.json(workouts);
+        console.log("allWorkouts!", workouts)
       })
       .catch((error) => {
         res.status(500).json({ error: 'Internal server error' });
