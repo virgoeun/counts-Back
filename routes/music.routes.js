@@ -1,9 +1,5 @@
 const axios = require("axios");
 const router = require("express").Router();
-const mongoose = require("mongoose");
-const User = require("../models/User.model");
-const Activity = require("../models/Activity.model");
-const Favorite = require("../models/Favorite.model");
 
 // *********** GET // Get Spotify Playlist! **********
 

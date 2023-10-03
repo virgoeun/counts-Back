@@ -14,7 +14,7 @@ const cors = require("cors"); // Import the cors middleware
 
 // Configure CORS middleware
 const corsOptions = {
-  origin: "http://localhost:5174",
+  origin: "http://localhost:5173",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
@@ -41,14 +41,14 @@ app.use("/api", isAuthenticated, videoRouter)
 const adminRouter = require("./routes/admin.routes")
 app.use("/api", isAuthenticated, adminRouter)
 
-const favoriteRouter = require("./routes/favorite.routes")
-app.use("/api", favoriteRouter);
-
 const checkinRouter = require("./routes/checkin.routes")
-app.use("/api", checkinRouter);
+app.use("/api", isAuthenticated, checkinRouter);
 
 const challengeRouter = require("./routes/challenge.routes")
-app.use("/api", challengeRouter)
+app.use("/api", isAuthenticated, challengeRouter)
+
+const bookmarksRouter = require("./routes/bookmarks.routes");
+app.use("/api", isAuthenticated, bookmarksRouter); 
 
 //EXTRA - maybe for Admin User?
 const geoCoderRouter = require("./routes/geocode.routes")

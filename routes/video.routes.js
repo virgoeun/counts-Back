@@ -1,12 +1,5 @@
 const axios = require("axios");
 const router = require("express").Router();
-const mongoose = require("mongoose");
-const User = require("../models/User.model");
-const Activity = require("../models/Activity.model");
-const Favorite = require("../models/Favorite.model");
-const fileUploader = require("../config/cloudinary.config");
-
-
 
 router.get("/video", (req, res, next) => {
   const options = {

@@ -9,7 +9,8 @@ const MONGO_URI =
   process.env.MONGODB_URI || "mongodb://0.0.0.0:27017/counts-project"; 
 
 mongoose
-  .connect(MONGO_URI)
+  .connect(MONGO_URI, { useNewUrlParser: true,
+    useUnifiedTopology: true,})
   .then((x) => {
     const dbName = x.connections[0].name;
     console.log(`Connected to Mongo! Database name: "${dbName}"`);

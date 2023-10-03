@@ -34,6 +34,7 @@ const userSchema = new Schema(
     },
     userData: [{ type: Schema.Types.ObjectId, ref: "Activity" }],
     favorites: [{ type: Schema.Types.ObjectId, ref: "Favorite" }],
+    //favorites: [{ type: Schema.Types.ObjectId, ref: "Favorite" }],
 
     isAdmin: {type:Boolean, default:false}
   },

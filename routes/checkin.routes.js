@@ -15,7 +15,7 @@ router.post("/checkin", (req, res) => {
   // const { userId, date, sports, sleep, water, stress, note } = req.body;
 
   const { date, sports, sleep, water, stress, note } = req.body;
-  console.log("Backend Req.body", req.body);
+  console.log("CHECKIN Backend Req.body", req.body);
 
   const userId = req.payload._id
 
@@ -82,14 +82,14 @@ router.post("/checkin", (req, res) => {
 
 router.get("/checkin", (req, res, next) => {
 const userId = req.payload._id; //current logged-in user's logs will get retrieved!
-console.log("ID", userId)
+console.log("checkin GET id", userId)
 //Activity.find({ user: userId })
 
   Activity.find({ user: userId })
     .populate("user")
     .then((userActivities) => {
       console.log("userActivities", userActivities); 
-      res.json(userActivities);
+      res.status(201).json(userActivities);
     })
     .catch((err) => res.json(err));
 });
@@ -100,7 +100,7 @@ console.log("ID", userId)
 router.get("/checkin/:activityid", (req, res, next) => {
   const { activityid } = req.params;
   if (!mongoose.Types.ObjectId.isValid(activityid)) {
-    res.status(400).json({ message: "Specified id is not valid" });
+    v
     return;
   }
 
