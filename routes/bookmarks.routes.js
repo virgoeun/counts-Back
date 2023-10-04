@@ -95,7 +95,7 @@ router.get("/bookmarks/:bookmarkId", (req, res, next) => {
   
 // ******************** DELETE: delete each data **************
 
-  router.delete("/bookmarks/:bookmarkid", (req, res, next) => {
+  router.delete("/bookmarks/:bookmarkId", (req, res, next) => {
     const { bookmarkId } = req.params;
   
     if (!mongoose.Types.ObjectId.isValid(bookmarkId)) {

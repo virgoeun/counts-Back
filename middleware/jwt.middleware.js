@@ -16,6 +16,8 @@ const getUser = jwt({
   credentialsRequired: false,
 });
 
+console.log("getuser", getUser);
+
 // Function used to extract the JWT token from the request's 'Authorization' Headers
 function getTokenFromHeaders(req) {
   // Check if the token is available on the request Headers

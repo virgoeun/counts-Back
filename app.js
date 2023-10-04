@@ -56,6 +56,10 @@ app.use("/api", isAuthenticated, challengeRouter);
 const bookmarksRouter = require("./routes/bookmarks.routes");
 app.use("/api", isAuthenticated, bookmarksRouter);
 
+//ADMIN
+const admineProfileRouter = require("./routes/adminprofile.routes");
+app.use("/api", admineProfileRouter);
+
 //EXTRA - maybe for Admin User?
 const geoCoderRouter = require("./routes/geocode.routes");
 app.use("/api", geoCoderRouter);

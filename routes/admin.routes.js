@@ -62,10 +62,10 @@ router.post("/admin/signup", (req, res, next) => {
       const { email, _id, userName } = createdUser;
 
       // Create a new object that doesn't expose the password
-      const user = { email, _id, userName };
+      const newUser = { email, _id, userName };
 
       // Send a json response containing the user object
-      res.status(201).json({ user: user });
+      res.status(201).json({ user: newUser });
     })
     .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
 });
@@ -125,14 +125,7 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
   res.status(200).json(req.payload);
 });
 
-router.get("/admin/profile", (req, res, next) => {
-  User.find()
-    .then((admin) => {
-      console.log("Admin", admin);
-      res.json(admin);
-    })
-    .catch((err) => res.json(err));
-})
+
 
 
   // User.findOne({ userName })
