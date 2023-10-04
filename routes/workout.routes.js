@@ -153,19 +153,37 @@ router.delete("/workout/:workoutId/liked", (req, res) => {
 
 
 
+
+//WORKS
+// router.get("/workout", (req, res) => {
+//   Workout.find()
+//     .then((workouts) => {
+//       const workoutsWithLikeCount = workouts.map((workout) => ({
+//         ...workout.toObject(),
+//         likeCount: workout.likes.length,//userIds length
+//       }));
+//       res.json(workoutsWithLikeCount);
+//       console.log("Workoutwithcounts", workoutsWithLikeCount)
+//     })
+//     .catch((error) => {
+//       console.error("Error fetching workout data:", error);
+//       res.status(500).json({ message: "Internal server error" });
+//     });
+// });
 router.get("/workout", (req, res) => {
+  // Fetch workouts with like counts and user details for likes
   Workout.find()
-    .then((workouts) => {
-      const workoutsWithLikeCount = workouts.map((workout) => ({
+    .populate('likes', 'username')  // Populate the user details (you can add other user fields you need)
+    .then(workouts => {
+      const workoutsWithLikeCount = workouts.map(workout => ({
         ...workout.toObject(),
-        likeCount: workout.likes.length,//userIds length
+        likeCount: workout.likes.length,  // User IDs length
       }));
       res.json(workoutsWithLikeCount);
-      console.log("Workoutwithcounts", workoutsWithLikeCount)
+      console.log("Workouts with counts:", workoutsWithLikeCount);
     })
-    .catch((error) => {
-      console.error("Error fetching workout data:", error);
-      res.status(500).json({ message: "Internal server error" });
+    .catch(err => {
+      res.status(500).json({ error: err.message });
     });
 });
 

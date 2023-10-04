@@ -211,6 +211,7 @@ router.delete("/style/:styleId/liked", (req, res) => {
 
 router.get("/style", (req, res) => {
   Style.find()
+  .populate('likes', 'username') 
     .then((styles) => {
       const stylesWithLikeCount = styles.map((style) => ({
         ...style.toObject(),
