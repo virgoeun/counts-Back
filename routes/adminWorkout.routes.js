@@ -48,71 +48,18 @@ router.post('/admin-workout', fileUploader.single("imageFile"), (req, res) => {
       res.status(400).json({ error: error.message });
     });
 });
-
-
-
-// RESPECTIVE POST?
-// router.post('/admin-workout',upload.single("imageFile"), (req, res) => {
-    
-//   const { workoutNumber, title, description } = req.body;
-
-//    // Check if an image file was uploaded
-//   if (!req.file) {
-//     return res.status(400).json({ error: 'Image file is required' });
-//   }
-
-//   // Assuming you have already configured Multer to upload the image to Cloudinary
-//   const imageUrl = req.file.path;
-
-
-//   const newWorkout = new Workout({ workoutNumber, title, description, imageUrl });
-//     newWorkout
-//       .save()
-//       .then((savedWorkout) => {
-//         res.status(201).json(savedWorkout);
-//       })
-//       .catch((error) => {
-//         res.status(400).json({ error: error.message });
-//       });
-//   });
-
-
-//   router.post('/admin-workout', (req, res) => {
-  
-//     const { workoutNumber, title, description, imageUrl } = req.body; // Assuming the client sends the workout ID to add
-//     const userId = req.payload._id; //adminuser id needs?
-
-//     const workout = new Workout({ workoutNumber, title, description, imageUrl });
-
-//     // Update the user's document to add the workout plan
-//     User.findByIdAndUpdate(
-//       userId,
-//       { $push: { workouts: workout._id } }, // Push the workout ID into the workouts array
-//       { new: true } // Return the updated user document
-//     )
-//       .then((updatedUser) => {
-//         if (!updatedUser) {
-//           res.status(404).json({ error: 'User not found' });
-//         } else {
-//           res.json(updatedUser);
-//         }
-//       })
-//       .catch((error) => {
-//         res.status(500).json({ error: 'Internal server error' });
-//       });
-//   });
   
 
-  router.get('/admin-workout', (req, res) => {
-    Workout.find()
-      .then((workouts) => {
-        res.json(workouts);
-        console.log("allWorkouts!", workouts)
-      })
-      .catch((error) => {
-        res.status(500).json({ error: 'Internal server error' });
-      });
-  });
+  // router.get('/admin-workout', (req, res) => {
+  //   Workout.find()
+  //     .then((workouts) => {
+  //       res.json(workouts);
+  //       console.log("allWorkouts!", workouts)
+  //     })
+  //     .catch((error) => {
+  //       res.status(500).json({ error: 'Internal server error' });
+  //     });
+  // });
 
 //do I need this?
   router.get('/admin-workout/:workoutId', (req, res) => {
@@ -153,6 +100,24 @@ router.post('/admin-workout', fileUploader.single("imageFile"), (req, res) => {
         res.status(400).json({ error: error.message });
       });
   });
+
+
+//For counting likes with all fetched workouts data : GET
+router.get("/admin-workout", (req, res) => {
+  Workout.find()
+    .then((workouts) => {
+      const workoutsWithLikeCount = workouts.map((workout) => ({
+        ...workout.toObject(),
+        likeCount: workout.likes.length,//userIds length
+      }));
+      res.json(workoutsWithLikeCount);
+      console.log("Workoutwithcounts", workoutsWithLikeCount)
+    })
+    .catch((error) => {
+      console.error("Error fetching workout data:", error);
+      res.status(500).json({ message: "Internal server error" });
+    });
+});
 
 
 module.exports = router;

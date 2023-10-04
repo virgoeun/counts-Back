@@ -73,5 +73,23 @@ router.delete("/workout/:workoutId/liked", async (req, res) => {
 });
 
 
+
+router.get("/workout", (req, res) => {
+  Workout.find()
+    .then((workouts) => {
+      const workoutsWithLikeCount = workouts.map((workout) => ({
+        ...workout.toObject(),
+        likeCount: workout.likes.length,//userIds length
+      }));
+      res.json(workoutsWithLikeCount);
+      console.log("Workoutwithcounts", workoutsWithLikeCount)
+    })
+    .catch((error) => {
+      console.error("Error fetching workout data:", error);
+      res.status(500).json({ message: "Internal server error" });
+    });
+});
+
+
 module.exports = router;
 
