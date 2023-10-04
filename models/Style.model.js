@@ -1,11 +1,11 @@
 const { Schema, model } = require("mongoose");
 
 const styleSchema = new Schema({
-    styleNumber: {
-        type: Number,
-        required: true,
-        unique: true,
-      },
+  styleNumber: {
+    type: Number,
+    required: true,
+    unique: true,
+  },
   title: {
     type: String,
     required: true,
@@ -13,10 +13,9 @@ const styleSchema = new Schema({
   },
   description: String,
   imageUrl: {
-    type: String, 
+    type: String,
   },
-  likes: [  { type: Schema.Types.ObjectId, ref: "User" }], //Array!
-  // Other fields as needed
+  likes: [{ type: Schema.Types.ObjectId, ref: "User" }], //Array!
 });
 
 const Style = model("Style", styleSchema);

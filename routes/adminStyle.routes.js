@@ -1,14 +1,10 @@
 const router = require("express").Router();
-const mongoose = require("mongoose");
 const User = require("../models/User.model");
 const Style= require("../models/Style.model")
-const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 const fileUploader = require("../config/cloudinary.config");
 
-
-// Initialize Multer with the configured storage
 const upload = multer({ CloudinaryStorage });
 
 router.post('/admin-style', fileUploader.single("imageFile"), (req, res) => {
@@ -50,7 +46,6 @@ router.post('/admin-style', fileUploader.single("imageFile"), (req, res) => {
     });
 });
   
-//do I need this?
   router.get('/admin-style/:styleId', (req, res) => {
     const { styleId } = req.params;
     Style.findById(styleId)
@@ -107,6 +102,5 @@ router.get("/admin-style", (req, res) => {
       res.status(500).json({ message: "Internal server error" });
     });
 });
-
 
 module.exports = router;

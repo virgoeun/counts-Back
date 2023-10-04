@@ -1,24 +1,14 @@
 const router = require("express").Router();
-
 const mongoose = require("mongoose");
-//const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 const User = require("../models/User.model");
 const Activity = require("../models/Activity.model");
 
-// TESTING FOR thunder
-// router.get("/abc", (req, res) => {
-//   res.json("it's working");
-// });
-
 router.post("/checkin", (req, res) => {
- 
-  // const { userId, date, sports, sleep, water, stress, note } = req.body;
 
   const { date, sports, sleep, water, stress, note } = req.body;
   console.log("CHECKIN Backend Req.body", req.body);
 
   const userId = req.payload._id
-
 
   const newActivity = new Activity({
     user: userId,
@@ -43,43 +33,19 @@ router.post("/checkin", (req, res) => {
       );
     })
     .then((updatedUser) => {
-      // Respond with the updated user document
+      
       res.status(201).json(updatedUser);
     })
     .catch((error) => {
-      console.error(error); // Log the detailed error message
+      console.error(error); 
       res.status(400).json({ error: error.message });
     });
 });
 
 
-// router.post("/log/:dataId", (req, res, next) => {
-//   const { dataId } = req.params;
-//   const { sports } = req.body;
-
-//   if (!mongoose.Types.ObjectId.isValid(dataId)) {
-//     res.status(400).json({ message: "Specified id is not valid" });
-//     return;
-//   }
-
-//   Activity.findByIdAndUpdate(
-//     dataId,
-//     {
-//       // sleep,
-//       // water,
-//       // stress,
-//       $push: { sports: sports }, //updating 3 but sports pushing (add)
-//     },
-//     { new: true }
-//   )
-
-//     .then((updatedActivity) => res.json(updatedActivity))
-//     .catch((error) => res.json(error));
-// });
 
 
 //GET all activities // Calendar
-
 router.get("/checkin", (req, res, next) => {
 const userId = req.payload._id; //current logged-in user's logs will get retrieved!
 console.log("checkin GET id", userId)
@@ -94,7 +60,7 @@ console.log("checkin GET id", userId)
     .catch((err) => res.json(err));
 });
 
-// ***********************************************************
+
 // ******************** GET: retreive each data **************
 
 router.get("/checkin/:activityid", (req, res, next) => {
@@ -112,7 +78,7 @@ router.get("/checkin/:activityid", (req, res, next) => {
     .catch((err) => res.json(err));
 });
 
-// ***********************************************************
+
 // ******************** PUT: update each data **************
 
 router.put("/checkin/:activityid", (req, res) => {
@@ -138,7 +104,6 @@ router.put("/checkin/:activityid", (req, res) => {
 });
 
 
-// ***********************************************************
 // ******************** DELETE: delete each data **************
 
 router.delete("/checkin/:activityid", (req, res, next) => {

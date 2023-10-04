@@ -1,16 +1,14 @@
 const { Schema, model } = require("mongoose");
 
-
 const activitySchema = new Schema([
   {
     user: { type: Schema.Types.ObjectId, ref: "User" },
     date: {
       type: Date,
-      required:true,
-      //default: Date.now,
+      required: true,
     },
     sleep: {
-      type:String,
+      type: String,
       enum: ["8", "7", "6", "4.5", "3"],
     },
     water: {
@@ -24,8 +22,7 @@ const activitySchema = new Schema([
     sports: [
       {
         durationInMinutes: {
-
-          type:String,
+          type: String,
           enum: ["3", "2", "1", "0.5", "0.25", "0.1"],
         },
 
@@ -54,10 +51,6 @@ const activitySchema = new Schema([
         },
 
         description: String,
-        // isCompleted: {
-        //   type: Boolean,
-        //   default: false,
-        // },
       },
     ],
     note: String,
@@ -67,5 +60,3 @@ const activitySchema = new Schema([
 const Activity = model("Activity", activitySchema);
 
 module.exports = Activity;
-
-

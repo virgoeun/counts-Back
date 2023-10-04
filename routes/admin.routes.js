@@ -10,10 +10,6 @@ const saltRounds = 10;
 const User = require("../models/User.model");
 const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
-// Require necessary (isAuthenticated) middleware in order to control access to specific routes
-
-
-// ************* Route for admin sign-up ********************
 
 router.post("/admin-signup", (req, res, next) => {
   const { email, password, userName, isAdmin } = req.body;
@@ -118,28 +114,5 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
   // Send back the token payload object containing the user data
   res.status(200).json(req.payload);
 });
-
-
-
-
-  // User.findOne({ userName })
-  //   .then((user) => {
-  //     if (!user || !user.isAdmin || user.password !== password) {
-  //       return res.status(403).json({ message: "Access Denied! You've just stepped into the dangerous zone... 🤪" });
-  //     }
-
-  //     // Generate a token for the admin user
-  //     const token = jwt.sign({ username: user.userName }, process.env.TOKEN_SECRET, {
-  //       expiresIn: "1h", // Set the token expiration as needed
-  //       algorithm: "HS256",
-  //     });
-
-  //     res.json({ token });
-  //   })
-  //   .catch((error) => {
-  //     console.error(error);
-  //     res.status(500).json({ message: "Internal server error" });
-  //   });
-// });
 
 module.exports = router;

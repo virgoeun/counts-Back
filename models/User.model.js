@@ -13,10 +13,6 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required."],
     },
-    // avatar: {
-    //   type: String,
-    //   default: "../images/avatar.png",
-    // },
     userName: {
       type: String,
       trim: true,
@@ -30,10 +26,9 @@ const userSchema = new Schema(
       styles: [{ type: Schema.Types.ObjectId, ref: "Style" }],
       workouts: [{ type: Schema.Types.ObjectId, ref: "Workout" }],
     },
-    isAdmin: {type:Boolean, default:false}
+    isAdmin: { type: Boolean, default: false },
   },
   {
-    // this second object adds extra properties: `createdAt` and `updatedAt`
     timestamps: true,
   }
 );
@@ -41,4 +36,3 @@ const userSchema = new Schema(
 const User = model("User", userSchema);
 
 module.exports = User;
-

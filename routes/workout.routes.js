@@ -3,14 +3,10 @@ const router = express.Router();
 const Workout = require("../models/Workout.model"); 
 const User = require("../models/User.model")
 
-// router.get("/workout", (req, res, next) => {
-//     console.log("Let's go!")
-//   res.json("Alice is working OUT?! ....😂!");
-// });
 
 router.get("/workout/:workoutId/liked", (req, res) => {
   const { workoutId } = req.params;
-  const userId = req.payload._id; // Assuming you have user authentication middleware
+  const userId = req.payload._id; 
 
   Workout.findById(workoutId)
     .exec()
@@ -27,8 +23,6 @@ router.get("/workout/:workoutId/liked", (req, res) => {
       res.status(500).json({ message: "Internal server error" });
     });
 });
-
-
 
 router.post("/workout/:workoutId/liked", (req, res) => {
   const { workoutId } = req.params;
@@ -61,57 +55,6 @@ router.post("/workout/:workoutId/liked", (req, res) => {
       res.status(500).json({ message: "Internal server error" });
     });
 });
-
-
-
-
-// Route to like a workout : WORKS! 
-// router.post("/workout/:workoutId/liked", async (req, res) => {
-//   try {
-//     const { workoutId } = req.params;
-//     const userId = req.payload._id; // Assuming you have user authentication middleware
-
-//     const workout = await Workout.findById(workoutId).exec();
-//     if (!workout) {
-//       return res.status(404).json({ message: "Workout not found" });
-//     }
-
-//     if (!workout.likes.includes(userId)) {
-//       workout.likes.push(userId);
-//       await workout.save();
-//     }
-
-//     res.json({ message: "Workout liked" });
-//   } catch (error) {
-//     console.error("Error liking workout:", error);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// });
-
-// Route to unlike a workout:works
-// router.delete("/workout/:workoutId/liked", async (req, res) => {
-//   try {
-//     const { workoutId } = req.params;
-//     const userId = req.payload._id; // Assuming you have user authentication middleware
-
-//     const workout = await Workout.findById(workoutId).exec();
-//     if (!workout) {
-//       return res.status(404).json({ message: "Workout not found" });
-//     }
-
-//     const userIndex = workout.likes.indexOf(userId);
-//     if (userIndex !== -1) {
-//       workout.likes.splice(userIndex, 1);
-//       await workout.save();
-//     }
-
-//     res.json({ message: "Workout unliked" });
-//   } catch (error) {
-//     console.error("Error unliking workout:", error);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// });
-
 
 
 router.delete("/workout/:workoutId/liked", (req, res) => {
@@ -152,24 +95,6 @@ router.delete("/workout/:workoutId/liked", (req, res) => {
 });
 
 
-
-
-//WORKS
-// router.get("/workout", (req, res) => {
-//   Workout.find()
-//     .then((workouts) => {
-//       const workoutsWithLikeCount = workouts.map((workout) => ({
-//         ...workout.toObject(),
-//         likeCount: workout.likes.length,//userIds length
-//       }));
-//       res.json(workoutsWithLikeCount);
-//       console.log("Workoutwithcounts", workoutsWithLikeCount)
-//     })
-//     .catch((error) => {
-//       console.error("Error fetching workout data:", error);
-//       res.status(500).json({ message: "Internal server error" });
-//     });
-// });
 router.get("/workout", (req, res) => {
   // Fetch workouts with like counts and user details for likes
   Workout.find()

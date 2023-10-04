@@ -8,8 +8,7 @@ const isAuthenticated = jwt({
   getToken: getTokenFromHeaders,
 });
 
-
-//you use the getUser middleware for a route, credentials are not required. 
+//you use the getUser middleware for a route, credentials are not required.
 const getUser = jwt({
   secret: process.env.TOKEN_SECRET,
   algorithms: ["HS256"],
@@ -30,7 +29,6 @@ function getTokenFromHeaders(req) {
     // Get the encoded token string and return it
     const token = req.headers.authorization.split(" ")[1];
 
-    
     return token;
   }
 
@@ -39,5 +37,6 @@ function getTokenFromHeaders(req) {
 
 // Export the middleware so that we can use it to create protected routes
 module.exports = {
-  isAuthenticated, getUser
+  isAuthenticated,
+  getUser,
 };
