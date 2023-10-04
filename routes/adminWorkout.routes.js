@@ -6,13 +6,12 @@ const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 const fileUploader = require("../config/cloudinary.config");
-const adminMiddleware = require("../middleware/admin.middleware");
 
 
 // Initialize Multer with the configured storage
 const upload = multer({ CloudinaryStorage });
 
-router.post('/admin-workout', adminMiddleware, fileUploader.single("imageFile"), (req, res) => {
+router.post('/admin-workout', fileUploader.single("imageFile"), (req, res) => {
   const { workoutNumber, title, description } = req.body;
 
   // Check if an image file was uploaded

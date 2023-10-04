@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const adminMiddleware = require("../middleware/admin.middleware");
 const User = require("../models/User.model");
 
 // Define a route to get the admin's profile data
-router.get("/admin-profile", adminMiddleware, (req, res) => {
+router.get("/admin-profile", (req, res) => {
   const userId = req.payload._id;
 
   User.findById(userId)

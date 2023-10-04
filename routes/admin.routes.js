@@ -15,7 +15,7 @@ const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 
 // ************* Route for admin sign-up ********************
 
-router.post("/admin/signup", (req, res, next) => {
+router.post("/admin-signup", (req, res, next) => {
   const { email, password, userName, isAdmin } = req.body;
 
   if (email === "" || password === "" || userName === "") {
@@ -71,7 +71,7 @@ router.post("/admin/signup", (req, res, next) => {
 });
 
 //Route for admin login
-router.post("/admin/login", (req, res) => {
+router.post("/admin-login", (req, res) => {
   const { email, password } = req.body;
 
   if (email === "" || password === "") {
@@ -85,12 +85,6 @@ router.post("/admin/login", (req, res) => {
       if (!user.isAdmin) {
         return res.status(403).json({ message: "Access Denied! You've just stepped into the dangerous zone... 🤪" });
       }
-      // if (!user || !user.isAdmin || user.password !== password) {
-      //   return res.status(403).json({
-      //     message:
-      //       "Access Denied! You've just stepped into the dangerous zone... 🤪",
-      //   });
-      // }
 
       // Compare the provided password with the one saved in the database
       const passwordCorrect = bcrypt.compareSync(password, user.password);

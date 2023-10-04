@@ -8,6 +8,8 @@ const isAuthenticated = jwt({
   getToken: getTokenFromHeaders,
 });
 
+
+//you use the getUser middleware for a route, credentials are not required. 
 const getUser = jwt({
   secret: process.env.TOKEN_SECRET,
   algorithms: ["HS256"],

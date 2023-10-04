@@ -59,14 +59,14 @@ app.use("/api", isAuthenticated, bookmarksRouter);
 
 //ADMIN
 const admineProfileRouter = require("./routes/adminprofile.routes");
-app.use("/api", admineProfileRouter);
+app.use("/api", isAuthenticated, admineProfileRouter);
 
 const adminStylerouter = require("./routes/adminStyle.routes");
-app.use("/api", adminStylerouter);
+app.use("/api", isAuthenticated, adminStylerouter);
 
 //EXTRA - maybe for Admin User?
 const geoCoderRouter = require("./routes/geocode.routes");
-app.use("/api", geoCoderRouter);
+app.use("/api", isAuthenticated, geoCoderRouter);
 
 const authRouter = require("./routes/auth.routes");
 app.use("/auth", authRouter);
