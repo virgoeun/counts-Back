@@ -113,5 +113,16 @@ router.get("/workout", (req, res) => {
 });
 
 
+router.get("/workout/:workoutId", (req, res, next) => {
+  const { workoutId } = req.params;
+
+  Workout.findById(workoutId)
+    .then((workout) => res.status(200).json(workout))
+    // for sending a response back to the client after the server has successfully
+    // retrieved and processed the requested data.
+    .catch((err) => res.json(err));
+});
+
+
 module.exports = router;
 

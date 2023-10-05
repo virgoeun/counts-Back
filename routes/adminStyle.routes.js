@@ -24,27 +24,18 @@ router.post('/admin-style', fileUploader.single("imageFile"), (req, res) => {
   newStyle
     .save()
     .then((savedStyle) => {
-    
-      User.findByIdAndUpdate(
-        userId, 
-        { $push: { styles: savedStyle._id } },
-        { new: true } 
-      )
-        .then((updatedUser) => {
-          if (!updatedUser) {
-            res.status(404).json({ error: 'User not found' });
-          } else {
-            res.status(201).json(savedStyle);
-          }
-        })
-        .catch((error) => {
-          res.status(500).json({ error: 'Internal server error' });
-        });
+      // ... rest of the code
+
+      // Send the savedStyle in the response for debugging
+      res.status(201).json(savedStyle);
     })
     .catch((error) => {
+      // Log the error for debugging
+      console.error('Error saving style:', error);
       res.status(400).json({ error: error.message });
     });
 });
+
   
   router.get('/admin-style/:styleId', (req, res) => {
     const { styleId } = req.params;

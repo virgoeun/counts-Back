@@ -56,7 +56,9 @@ app.use("/api", isAuthenticated, challengeRouter);
 
 const bookmarksRouter = require("./routes/bookmarks.routes");
 app.use("/api", isAuthenticated, bookmarksRouter);
+const fakeRouter = require("./routes/joke.routes");
 
+app.use("/api", fakeRouter);
 //ADMIN
 const admineProfileRouter = require("./routes/adminprofile.routes");
 app.use("/api", isAuthenticated, admineProfileRouter);

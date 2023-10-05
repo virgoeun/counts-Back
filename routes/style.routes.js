@@ -109,4 +109,16 @@ router.get("/style", (req, res) => {
     });
 });
 
+
+router.get("/style/:styleId", (req, res, next) => {
+  const { styleId } = req.params;
+
+  Style.findById(styleId)
+    .then((style) => res.status(200).json(style))
+    // for sending a response back to the client after the server has successfully
+    // retrieved and processed the requested data.
+    .catch((err) => res.json(err));
+});
+
+
 module.exports = router;

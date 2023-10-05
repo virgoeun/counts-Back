@@ -66,7 +66,6 @@ console.log("checkin GET id", userId)
 router.get("/checkin/:activityid", (req, res, next) => {
   const { activityid } = req.params;
   if (!mongoose.Types.ObjectId.isValid(activityid)) {
-    v
     return;
   }
 
