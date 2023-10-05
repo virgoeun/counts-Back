@@ -9,6 +9,7 @@ const favoriteSchema = new Schema({
     required: true,
     enum: ["style", "food", "location", "music"],
   },
+
 });
 
 const favorite = model("Favorite", favoriteSchema);

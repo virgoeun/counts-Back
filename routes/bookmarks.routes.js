@@ -3,9 +3,8 @@ const mongoose = require("mongoose");
 const User = require("../models/User.model");
 const Favorite = require("../models/Favorites.model"); 
 
-const { isAuthenticated } = require("../middleware/jwt.middleware");
 
-router.post("/bookmarks", isAuthenticated, (req, res) => {
+router.post("/bookmarks",(req, res) => {
   const { name, uri, category } = req.body;
 
   const userId = req.payload._id;
