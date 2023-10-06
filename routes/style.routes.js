@@ -73,7 +73,7 @@ router.delete("/style/:styleId/liked", (req, res) => {
         style.likes.splice(userIndex, 1);
         return style.save();
       }
-
+  // If the user is not in the likes array, return a resolved promise
       return Promise.resolve();
     })
     .then(() => {

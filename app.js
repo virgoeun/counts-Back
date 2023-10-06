@@ -27,8 +27,11 @@ const { isAuthenticated } = require("./middleware/jwt.middleware.js");
 require("./config")(app);
 
 // 👇 Start handling routes here
-const allRoutes = require("./routes/index.routes");
+const allRoutes = require("./routes/Home.routes");
 app.use("/api", allRoutes);
+
+// const homeRouter = require("./routes/Home.routes");
+// app.use("/api", homeRouter);
 
 const profileRouter = require("./routes/profile.routes");
 app.use("/api", isAuthenticated, profileRouter);
@@ -56,9 +59,7 @@ app.use("/api", isAuthenticated, challengeRouter);
 
 const bookmarksRouter = require("./routes/bookmarks.routes");
 app.use("/api", isAuthenticated, bookmarksRouter);
-const fakeRouter = require("./routes/joke.routes");
 
-app.use("/api", fakeRouter);
 //ADMIN
 const admineProfileRouter = require("./routes/adminprofile.routes");
 app.use("/api", isAuthenticated, admineProfileRouter);

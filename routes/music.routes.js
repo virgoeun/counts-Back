@@ -7,11 +7,11 @@ router.get("/music", (req, res, next) => {
   const options = {
     method: 'GET',
     url: 'https://spotify23.p.rapidapi.com/search/',
-    params: {q: 'workout',
+    params: {q: 'fitness',
     type: 'playlist',
     offset: '0',
     limit: '10',
-    numberOfTopResults: '5'},
+    numberOfTopResults: '4'},
     headers: {
       'X-RapidAPI-Key': '2b90b0f361msh8b43d50ec02dbcep1952bdjsn487cd58b3f12',
       'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
