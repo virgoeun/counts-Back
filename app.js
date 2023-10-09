@@ -27,8 +27,8 @@ const { isAuthenticated } = require("./middleware/jwt.middleware.js");
 require("./config")(app);
 
 // 👇 Start handling routes here
-const allRoutes = require("./routes/Home.routes");
-app.use("/api", allRoutes);
+const indexRoutes = require("./routes/index.routes");
+app.use("/api", indexRoutes);
 
 // const homeRouter = require("./routes/Home.routes");
 // app.use("/api", homeRouter);
