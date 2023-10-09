@@ -30,7 +30,7 @@ module.exports = (app) => {
 
   app.use(
     cors({
-      origin: ["http://localhost:5173", process.env.ORIGIN],
+      origin: [FRONTEND_URL],
     })
   );
 
