@@ -3,7 +3,7 @@ const axios = require("axios");
 const router = express.Router();
 const NodeGeocoder = require("node-geocoder");
 
-const apiKey = "AIzaSyBTqoXLNCSJV4jiZdF9MlC-7lZQAFuYGUU";
+const apiKey = process.env.GOOGLE_API_KEY;
 
 const geocoder = NodeGeocoder({
   provider: "google",
