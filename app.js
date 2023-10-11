@@ -15,7 +15,7 @@ const cors = require("cors"); // Import the cors middleware
 
 // Configure CORS middleware
 const corsOptions = {
-  origin: "https://graceful-pika-a0b2f8.netlify.app/login",
+  origin: "https://graceful-pika-a0b2f8.netlify.app",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
