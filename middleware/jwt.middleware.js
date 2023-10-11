@@ -9,15 +9,15 @@ const isAuthenticated = jwt({
 });
 
 //you use the getUser middleware for a route, credentials are not required.
-const getUser = jwt({
-  secret: process.env.TOKEN_SECRET,
-  algorithms: ["HS256"],
-  requestProperty: "userTokenData",
-  getToken: getTokenFromHeaders,
-  credentialsRequired: false,
-});
+// const getUser = jwt({
+//   secret: process.env.TOKEN_SECRET,
+//   algorithms: ["HS256"],
+//   requestProperty: "userTokenData",
+//   getToken: getTokenFromHeaders,
+//   credentialsRequired: false,
+// });
 
-console.log("getuser", getUser);
+// console.log("getuser", getUser);
 
 // Function used to extract the JWT token from the request's 'Authorization' Headers
 function getTokenFromHeaders(req) {
@@ -38,5 +38,4 @@ function getTokenFromHeaders(req) {
 // Export the middleware so that we can use it to create protected routes
 module.exports = {
   isAuthenticated,
-  getUser,
 };
