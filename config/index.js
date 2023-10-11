@@ -15,7 +15,7 @@ const path = require("path");
 // unless the request is made from the same domain, by default express wont accept POST requests
 const cors = require("cors");
 
-const FRONTEND_URL = process.env.ORIGIN || "http://localhost:3000";
+//const FRONTEND_URL = process.env.ORIGIN || "http://localhost:3000";
 
 // Middleware configuration
 module.exports = (app) => {
@@ -30,7 +30,8 @@ module.exports = (app) => {
 
   app.use(
     cors({
-      origin: [FRONTEND_URL],
+      origin: process.env.FRONTEND_URL,
+      credentials: true
     })
   );
 
